@@ -1,13 +1,5 @@
 [
     {
-        "id": 1,
-        "name": "Pizza Margherita",
-        "description": "Délicieuse pizza italienne classique avec sauce tomate, mozzarella et basilic frais",
-        "price": 10.99,
-        "category": "plat",
-        "image": "images/pizza_margherita.jpeg"
-    },
-    {
         "id": 2,
         "name": "Burger Géant",
         "description": "Un hamburger géant avec deux steaks juteux, fromage fondant et légumes frais.",

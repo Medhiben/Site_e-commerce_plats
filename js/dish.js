@@ -1,4 +1,4 @@
-class Dish {
+ export class Dish {
     constructor(name,description, price, category) {
         this.name = name;
         this.description = description;
@@ -6,3 +6,4 @@ class Dish {
         this.category = category;
     }
 }
+
