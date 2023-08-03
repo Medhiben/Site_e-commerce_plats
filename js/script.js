@@ -1,14 +1,17 @@
 class Dish {
-    constructor(name,description, price, category) {
+    constructor(id, name, description, price, category) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.category = category;
     }
 }
+
 //recuperer par un fetch les données du dossier plats.json
-const PLATS_URL ='./js/plats.json';
+const PLATS_URL ='./assets/plats.json';
 const tableauDish = [];
+
 
 fetch(PLATS_URL)
 .then(data => data)
@@ -18,18 +21,18 @@ fetch(PLATS_URL)
     //créer une instance de Dish pour chaque objet plats à l'aide d'une boucle for pour tous les cibler
 
 for(let dish of data){
- const newDish = new Dish(dish.name,dish.description, dish.price, dish.category);
+ const newDish = new Dish(dish.id, dish.name, dish.description, dish.price, dish.category);
  tableauDish.push(newDish);
 }
 for(let dish of tableauDish){
-   displayPlat(dish);
+   displayPlats(dish);
 }
 console.log(tableauDish);
 
 })
 
 //creer les elements html en javascript , Récupérer l' id "menu-list" et insérer un noeud "li" qui représente un plat 
- function displayPlat(plats){
+ function displayPlats(plats){
 let ul = document.getElementById("menu-list");
 
 
@@ -95,6 +98,15 @@ buttonDanger.classList.add("btn");
 buttonDanger.classList.add("btn-danger");
 buttonDanger.textContent = 'Voir la description';
 divButton.appendChild(buttonDanger);
+
+buttonDanger.addEventListener("click", (event) => {
+// If your expected result is "http://foo.bar/?x=1&y=2&x=42"
+
+
+    window.location.href="html/description.html?id="+ plats.id;
+    
+
+});
 }
 
 
