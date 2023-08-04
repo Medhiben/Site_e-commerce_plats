@@ -29,7 +29,7 @@ fetch(PLATS_URL)
     console.log(data)
 
 
-
+//
     const platFound = data.find((plat) => plat.id == id );
     console.log(platFound);
     getPlat(platFound);
