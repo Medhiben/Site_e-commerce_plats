@@ -10,7 +10,7 @@ class Dish {
 }
 
 //recuperer par un fetch les données du dossier plats.json
-const PLATS_URL ='./assets/plats.json';
+const PLATS_URL ='./images/plats.json';
 const tableauDish = [];
 
 
@@ -54,8 +54,8 @@ productLi.appendChild(divContenair)
 
 // creation de l'element img
 const image = document.createElement('img');
-image.src = 'images/image2.jpg';
-image.alt = 'Image du plat 2';
+image.src = plats.image;
+image.alt = plats.description;
 divContenair.appendChild(image);
 
 

@@ -1,10 +1,11 @@
 class Dish {
-    constructor(id, name, description, price, category) {
+    constructor(id, name, description, price, category, image) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.category = category;
+        this.image = image;
     }
 }
 
@@ -17,7 +18,7 @@ class Dish {
 const params = new URLSearchParams(document.location.search);
 const id = params.get("id");
 console.log(id)
-const PLATS_URL ='./../assets/plats.json';
+const PLATS_URL ='./../images/plats.json';
 
 
 
@@ -65,8 +66,8 @@ productLi.appendChild(divContenair)
 
 // creation de l'element img
 const image = document.createElement('img');
-image.src = '';
-image.alt = '';
+image.src = './../'+plat.image;
+image.alt = 'pas image';
 divContenair.appendChild(image);
 
 
