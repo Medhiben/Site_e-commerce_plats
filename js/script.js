@@ -1,10 +1,11 @@
 class Dish {
-    constructor(id, name, description, price, category) {
+    constructor(id, name, description, price, category, image) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.category = category;
+        this.image = image;
     }
 }
 
@@ -21,7 +22,7 @@ fetch(PLATS_URL)
     //créer une instance de Dish pour chaque objet plats à l'aide d'une boucle for pour tous les cibler
 
 for(let dish of data){
- const newDish = new Dish(dish.id, dish.name, dish.description, dish.price, dish.category);
+ const newDish = new Dish(dish.id, dish.name, dish.description, dish.price, dish.category, dish.image);
  tableauDish.push(newDish);
 }
 for(let dish of tableauDish){
@@ -53,7 +54,7 @@ productLi.appendChild(divContenair)
 
 // creation de l'element img
 const image = document.createElement('img');
-image.src = 'assets/image2.jpg';
+image.src = 'images/image2.jpg';
 image.alt = 'Image du plat 2';
 divContenair.appendChild(image);
 
