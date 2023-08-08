@@ -1,11 +1,12 @@
 class Dish {
-    constructor(id, name, description, price, category, image) {
+    constructor(id, name, description, price, category, image, quantityOfDish) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.category = category;
         this.image = image;
+        this.quantityOfDish = quantityOfDish;
     }
 }
 
@@ -26,7 +27,7 @@ for(let dish of data){
  tableauDish.push(newDish);
 }
 for(let dish of tableauDish){
-   displayPlats(dish);
+   displayPlats(dish);   
 }
 console.log(tableauDish);
 
@@ -108,23 +109,62 @@ buttonDanger.addEventListener("click", (event) => {
     
 
 });
+
+const userOrder = [];
+
+buttonSuccess.addEventListener("click", (event) => {
+    const existingOrder = userOrder.find(order => order.id === plats.id);
+
+    if (existingOrder) {
+        existingOrder.quantity++;
+    } else {
+        const newOrder = {
+            id: plats.id,
+            name: plats.name,
+            price: plats.price,
+            quantity: 1,
+        };
+        userOrder.push(newOrder);
+    }
+    DisplayMyCommande();
+});
+
+function DisplayMyCommande() {
+    const contenairPanier = document.getElementById("left-section");
+    contenairPanier.innerHTML = "";
+
+    let totalPrice = 0;
+    for (const order of userOrder) {
+        const itemLi = document.createElement("li");
+        itemLi.textContent = `${order.name} x${order.quantity} ${order.price * order.quantity}€`;
+        contenairPanier.appendChild(itemLi);
+        totalPrice += order.price * order.quantity;
+    }
+
+    const totalPriceElement = document.createElement("li");
+    totalPriceElement.textContent = `Total: ${totalPrice}€`;
+    contenairPanier.appendChild(totalPriceElement);
 }
-
-function displayPlatInCommand(plats){
- const contenairPanier = document.getElementById("left-section");
- const informationPanier = "Je suis le conteneur des informations à afficher";
-
     
-    buttonSuccess.addEventListener("click", (event) => {
-        
-        
-            // window.location.href="html/description.html?id="+ plats.id;
-            contenairPanier.innerHTML = informationPanier;
-        
-        });
-
 }
 
+
+
+// function displayPlatInCommand(plats){
+// //     const contenairPanier = document.getElementById("left-section");
+// //     const informationPanier = "Je suis le conteneur des informations à afficher";
+// // //    const buttonSuccess = document.getElementsByClassName("btn-success")
+       
+    //    buttonSuccess.addEventListener("click", (event) => {
+           
+           
+    //            // window.location.href="html/description.html?id="+ plats.id;
+    //            contenairPanier.innerHTML = plats.description + plats.price;
+    //            console.log(informationPanier);
+           
+    //        });
+   
+//    }
 
 
 

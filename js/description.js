@@ -67,7 +67,7 @@ productLi.appendChild(divContenair)
 // creation de l'element img
 const image = document.createElement('img');
 image.src = './../'+plat.image;
-image.alt = 'pas image';
+image.alt = 'description';
 divContenair.appendChild(image);
 
 
