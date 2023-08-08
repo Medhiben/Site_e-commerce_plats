@@ -111,7 +111,17 @@ buttonDanger.addEventListener("click", (event) => {
 }
 
 function displayPlatInCommand(plats){
+ const contenairPanier = document.getElementById("left-section");
+ const informationPanier = "Je suis le conteneur des informations à afficher";
 
+    
+    buttonSuccess.addEventListener("click", (event) => {
+        
+        
+            // window.location.href="html/description.html?id="+ plats.id;
+            contenairPanier.innerHTML = informationPanier;
+        
+        });
 
 }
 
