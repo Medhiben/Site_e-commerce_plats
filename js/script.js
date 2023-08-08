@@ -110,6 +110,11 @@ buttonDanger.addEventListener("click", (event) => {
 });
 }
 
+function displayPlatInCommand(plats){
+
+
+}
+
 
 
 
