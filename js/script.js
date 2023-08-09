@@ -1,12 +1,12 @@
 class Dish {
-    constructor(id, name, description, price, category, image, quantityOfDish) {
+    constructor(id, name, description, price, category, image, quantity) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.category = category;
         this.image = image;
-        this.quantityOfDish = quantityOfDish;
+        this.quantity = quantity;
     }
 }
 
@@ -23,15 +23,17 @@ fetch(PLATS_URL)
     //créer une instance de Dish pour chaque objet plats à l'aide d'une boucle for pour tous les cibler
 
 for(let dish of data){
- const newDish = new Dish(dish.id, dish.name, dish.description, dish.price, dish.category, dish.image);
+ const newDish = new Dish(dish.id, dish.name, dish.description, dish.price, dish.category, dish.image, 0);
  tableauDish.push(newDish);
 }
+
 for(let dish of tableauDish){
    displayPlats(dish);   
-}
-console.log(tableauDish);
-
+ }
 })
+
+const panierPlat = [];
+
 
 //creer les elements html en javascript , Récupérer l' id "menu-list" et insérer un noeud "li" qui représente un plat 
  function displayPlats(plats){
@@ -103,84 +105,56 @@ divButton.appendChild(buttonDanger);
 
 buttonDanger.addEventListener("click", (event) => {
 // If your expected result is "http://foo.bar/?x=1&y=2&x=42"
-
-
     window.location.href="html/description.html?id="+ plats.id;
+});
+// function displayPlatInCommand(plats){
     
-
-});
-
-const userOrder = [];
-
+//     
 buttonSuccess.addEventListener("click", (event) => {
-    const existingOrder = userOrder.find(order => order.id === plats.id);
+  const indexPlatExistant = panierPlat.findIndex((plat) => plat.id === plats.id);
 
-    if (existingOrder) {
-        existingOrder.quantity++;
-    } else {
-        const newOrder = {
-            id: plats.id,
-            name: plats.name,
-            price: plats.price,
-            quantity: 1,
-        };
-        userOrder.push(newOrder);
-    }
-    displayMaCommande();
+  if (indexPlatExistant !== -1) {
+    panierPlat[indexPlatExistant].quantity++;
+  } else {
+    plats.quantity = 1;
+    panierPlat.push(plats);
+  }
+
+  console.log(panierPlat);
+  afficherPlatsSelectionnes();
 });
+   }
 
-function displayMaCommande() {
-    const contenuPanier = document.getElementById("left-section");
-    contenuPanier.innerHTML = "";
+   function afficherPlatsSelectionnes() {
+    const sectionCommande = document.getElementById("left-section");
+    sectionCommande.innerHTML = ""; // Effacez la section d'abord
+
 
     let total = 0;
+  
+    for (const plat of panierPlat) {
+      const platCommande = document.createElement("li");
+      platCommande.classList.add("commande-item");
+      platCommande.textContent = `${plat.name} x${plat.quantity} ${plat.price * plat.quantity}€`;
+      sectionCommande.appendChild(platCommande);
+      total += plat.price * plat.quantity; // Ajoutez le prix au total
 
-    for (const order of userOrder) {
-        const itemLi = document.createElement("li");
-        const totalPrice = order.price * order.quantity;
-        total += totalPrice;
+      
 
-        itemLi.textContent = `${order.name} x${order.quantity} ${totalPrice.toFixed(2)}€`;
-        contenuPanier.appendChild(itemLi);
     }
 
-    const totalElement = document.createElement("li");
-    totalElement.textContent = `Total: ${total.toFixed(2)}€`;
-    contenuPanier.appendChild(totalElement);
-}
-
-
+    for(const plat of panierPlat) {
+        total += plat.price * plat.quantity;
+        const totalCommande = document.createElement("div");
+    totalCommande.classList.add("total-item");
+    panierPlat.textContent = `Total : ${total}€`;
+    platCommande.appendChild(totalCommande);
+    }
+    
 
 
 
     
-}
-
-
-
-// function displayPlatInCommand(plats){
-// //     const contenairPanier = document.getElementById("left-section");
-// //     const informationPanier = "Je suis le conteneur des informations à afficher";
-// // //    const buttonSuccess = document.getElementsByClassName("btn-success")
-       
-    //    buttonSuccess.addEventListener("click", (event) => {
-           
-           
-    //            // window.location.href="html/description.html?id="+ plats.id;
-    //            contenairPanier.innerHTML = plats.description + plats.price;
-    //            console.log(informationPanier);
-           
-    //        });
-   
-//    }
-
-
-
-
-
-
-
-
-
+  }
 
 
