@@ -23,7 +23,7 @@ fetch(PLATS_URL)
     //créer une instance de Dish pour chaque objet plats à l'aide d'une boucle for pour tous les cibler
 
 for(let dish of data){
- const newDish = new Dish(dish.id, dish.name, dish.description, dish.price, dish.category, dish.image, 0);
+ const newDish = new Dish(dish.id, dish.name, dish.description, dish.price, dish.category, dish.image, dish.quantity);
  tableauDish.push(newDish);
 }
 
@@ -33,6 +33,8 @@ for(let dish of tableauDish){
 })
 
 const panierPlat = [];
+let total = 0;
+
 
 
 //creer les elements html en javascript , Récupérer l' id "menu-list" et insérer un noeud "li" qui représente un plat 
@@ -111,49 +113,44 @@ buttonDanger.addEventListener("click", (event) => {
     
 //     
 buttonSuccess.addEventListener("click", (event) => {
-  const indexPlatExistant = panierPlat.findIndex((plat) => plat.id === plats.id);
+    const indexPlatExistant = panierPlat.findIndex((plat) => plat.id === plats.id);
 
-  if (indexPlatExistant !== -1) {
-    panierPlat[indexPlatExistant].quantity++;
-  } else {
-    plats.quantity = 1;
-    panierPlat.push(plats);
-  }
-
-  console.log(panierPlat);
-  afficherPlatsSelectionnes();
+    if (indexPlatExistant !== -1) {
+      panierPlat[indexPlatExistant].quantity++;
+    } else {
+      plats.quantity = 1;
+      panierPlat.push(plats);
+    }
+  
+    console.log(panierPlat);
+    afficherPlatsSelectionnes();
 });
+
    }
 
    function afficherPlatsSelectionnes() {
-    const sectionCommande = document.getElementById("left-section");
-    sectionCommande.innerHTML = ""; // Effacez la section d'abord
+    const listeCommande = document.getElementById("commande-list");
+  listeCommande.innerHTML = ""; // Effacez la liste d'abord
 
+  let total = 0; // Initialisez le total
 
-    let total = 0;
-  
-    for (const plat of panierPlat) {
-      const platCommande = document.createElement("li");
-      platCommande.classList.add("commande-item");
-      platCommande.textContent = `${plat.name} x${plat.quantity} ${plat.price * plat.quantity}€`;
-      sectionCommande.appendChild(platCommande);
-      total += plat.price * plat.quantity; // Ajoutez le prix au total
+  for (const plat of panierPlat) {
+    const platLi = document.createElement("li");
+    platLi.textContent = `${plat.name} x${plat.quantity} ${plat.price * plat.quantity}€`;
+    listeCommande.appendChild(platLi);
 
+    total += plat.price * plat.quantity; // Ajoutez le prix au total
+  }
+
+    // // for(const plats of panierPlat) {
+    // //     const totalCommande = document.createElement("li");
+    // // total += plats.price * plats.quantity;
+    // // panierPlat.textContent = `${total}€`;
+    // // platCommande.appendChild(totalCommande);
       
-
-    }
-
-    for(const plat of panierPlat) {
-        total += plat.price * plat.quantity;
-        const totalCommande = document.createElement("div");
-    totalCommande.classList.add("total-item");
-    panierPlat.textContent = `Total : ${total}€`;
-    platCommande.appendChild(totalCommande);
-    }
-    
-
-
-
+    // }
+    const totalElement = document.getElementById("total");
+    totalElement.textContent = `Total : ${total}€`;
     
   }
 
