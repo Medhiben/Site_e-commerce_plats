@@ -126,25 +126,33 @@ buttonSuccess.addEventListener("click", (event) => {
         };
         userOrder.push(newOrder);
     }
-    DisplayMyCommande();
+    displayMaCommande();
 });
 
-function DisplayMyCommande() {
-    const contenairPanier = document.getElementById("left-section");
-    contenairPanier.innerHTML = "";
+function displayMaCommande() {
+    const contenuPanier = document.getElementById("left-section");
+    contenuPanier.innerHTML = "";
 
-    let totalPrice = 0;
+    let total = 0;
+
     for (const order of userOrder) {
         const itemLi = document.createElement("li");
-        itemLi.textContent = `${order.name} x${order.quantity} ${order.price * order.quantity}€`;
-        contenairPanier.appendChild(itemLi);
-        totalPrice += order.price * order.quantity;
+        const totalPrice = order.price * order.quantity;
+        total += totalPrice;
+
+        itemLi.textContent = `${order.name} x${order.quantity} ${totalPrice.toFixed(2)}€`;
+        contenuPanier.appendChild(itemLi);
     }
 
-    const totalPriceElement = document.createElement("li");
-    totalPriceElement.textContent = `Total: ${totalPrice}€`;
-    contenairPanier.appendChild(totalPriceElement);
+    const totalElement = document.createElement("li");
+    totalElement.textContent = `Total: ${total.toFixed(2)}€`;
+    contenuPanier.appendChild(totalElement);
 }
+
+
+
+
+
     
 }
 
