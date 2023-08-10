@@ -151,7 +151,19 @@ buttonSuccess.addEventListener("click", (event) => {
     // }
     const totalElement = document.getElementById("total");
     totalElement.textContent = `Total : ${total}€`;
+    const btnPayer = document.getElementById("btn-payer");
+btnPayer.addEventListener("click", (event) =>
+effectuerPaiement()
+
+);
     
+  }
+
+
+  function effectuerPaiement() {
+    alert("VOTRE COMMANDE A ÉTÉ PAYÉ AVEC SUCCÈS");
+    panierPlat.length = 0; // Réinitialisez le panier après le paiement
+    afficherPlatsSelectionnes(); // Mettez à jour l'affichage
   }
 
 
