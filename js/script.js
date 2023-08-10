@@ -126,6 +126,32 @@ buttonSuccess.addEventListener("click", (event) => {
     afficherPlatsSelectionnes();
 });
 
+
+const commandeForm = document.getElementById("commande-form");
+
+    commandeForm.addEventListener("submit", (event) => {
+        event.preventDefault(); // Empêche l'envoi réel du formulaire
+
+        // Simulez l'envoi du formulaire en affichant une alerte
+        const confirmation = confirm("VOTRE FORMULAIRE A BIEN ÉTÉ ENVOYÉ. Cliquez sur OK pour réinitialiser.");
+
+        if (confirmation) {
+          // Réinitialisez le formulaire
+          commandeForm.reset();
+          commandeForm.refresh();
+
+          // Réinitialisez le panier
+          panierPlat.length = 0;
+
+          // Mettez à jour l'affichage
+          afficherPlatsSelectionnes();
+      }
+    });
+
+    // ...
+
+
+
    }
 
    function afficherPlatsSelectionnes() {
@@ -164,6 +190,6 @@ effectuerPaiement()
     alert("VOTRE COMMANDE A ÉTÉ PAYÉ AVEC SUCCÈS");
     panierPlat.length = 0; // Réinitialisez le panier après le paiement
     afficherPlatsSelectionnes(); // Mettez à jour l'affichage
-  }
+  }   
 
-
+  
