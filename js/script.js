@@ -139,6 +139,9 @@ buttonSuccess.addEventListener("click", (event) => {
   let total = 0; // Initialisez le total
 
   for (const plat of panierPlat) {
+    const emptyPanier = document.getElementById('empty_panier')
+    console.log(emptyPanier);
+    emptyPanier.style.display = 'none';
     const platLi = document.createElement("li");
     platLi.textContent = `${plat.name} x${plat.quantity} ${plat.price * plat.quantity}€`;
     listeCommande.appendChild(platLi);
