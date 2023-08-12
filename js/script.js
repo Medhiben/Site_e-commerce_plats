@@ -23,7 +23,7 @@ fetch(PLATS_URL)
     //créer une instance de Dish pour chaque objet plats à l'aide d'une boucle for pour tous les cibler
 
 for(let dish of data){
- const newDish = new Dish(dish.id, dish.name, dish.description, dish.price, dish.category, dish.image, dish.quantity);
+ const newDish = new Dish(dish.id, dish.name, dish.description, dish.price, dish.category, dish.image, 0);
  tableauDish.push(newDish);
 }
 
@@ -35,11 +35,18 @@ for(let dish of tableauDish){
 const panierPlat = [];
 let total = 0;
 
+const commandeForm = document.getElementById("commande-form");
 
+    commandeForm.addEventListener("submit", (event) => {
+        event.preventDefault(); // Empêche l'envoi réel du formulaire
+        JSAlert.alert("Connexion établie");
+      
+    });
 
 //creer les elements html en javascript , Récupérer l' id "menu-list" et insérer un noeud "li" qui représente un plat 
  function displayPlats(plats){
 let ul = document.getElementById("menu-list");
+
 
 
 
@@ -106,51 +113,22 @@ buttonDanger.textContent = 'Voir la description';
 divButton.appendChild(buttonDanger);
 
 buttonDanger.addEventListener("click", (event) => {
-// If your expected result is "http://foo.bar/?x=1&y=2&x=42"
     window.location.href="html/description.html?id="+ plats.id;
 });
 // function displayPlatInCommand(plats){
     
 //     
 buttonSuccess.addEventListener("click", (event) => {
-    const indexPlatExistant = panierPlat.findIndex((plat) => plat.id === plats.id);
+  const indexPlat = panierPlat.findIndex((plat) => plat.id === plats.id);
+  plats.quantity++;
 
-    if (indexPlatExistant !== -1) {
-      panierPlat[indexPlatExistant].quantity++;
-    } else {
-      plats.quantity = 1;
-      panierPlat.push(plats);
-    }
-  
+   if(indexPlat === -1) {
+    panierPlat.push(plats);
+  }
+
     console.log(panierPlat);
     afficherPlatsSelectionnes();
 });
-
-
-const commandeForm = document.getElementById("commande-form");
-
-    commandeForm.addEventListener("submit", (event) => {
-        event.preventDefault(); // Empêche l'envoi réel du formulaire
-
-        // Simulez l'envoi du formulaire en affichant une alerte
-        const confirmation = confirm("VOTRE FORMULAIRE A BIEN ÉTÉ ENVOYÉ. Cliquez sur OK pour réinitialiser.");
-
-        if (confirmation) {
-          // Réinitialisez le formulaire
-          commandeForm.reset();
-          commandeForm.refresh();
-
-          // Réinitialisez le panier
-          panierPlat.length = 0;
-
-          // Mettez à jour l'affichage
-          afficherPlatsSelectionnes();
-      }
-    });
-
-    // ...
-
-
 
    }
 
@@ -165,7 +143,21 @@ const commandeForm = document.getElementById("commande-form");
     platLi.textContent = `${plat.name} x${plat.quantity} ${plat.price * plat.quantity}€`;
     listeCommande.appendChild(platLi);
 
+
     total += plat.price * plat.quantity; // Ajoutez le prix au total
+  }
+
+  const btn_container = document.getElementsByClassName("btn_container")[0]
+  if(btn_container.childNodes.length === 0){
+  const btnPayer = document.createElement("button");
+    btnPayer.id = "btn-payer";
+    btnPayer.textContent = 'Payer';
+    btn_container.appendChild(btnPayer);
+    document.getElementById("btn-payer");
+btnPayer.addEventListener("click", (event) =>effectuerPaiement());
+
+  
+
   }
 
     // // for(const plats of panierPlat) {
@@ -177,19 +169,33 @@ const commandeForm = document.getElementById("commande-form");
     // }
     const totalElement = document.getElementById("total");
     totalElement.textContent = `Total : ${total}€`;
-    const btnPayer = document.getElementById("btn-payer");
-btnPayer.addEventListener("click", (event) =>
-effectuerPaiement()
-
-);
+    
     
   }
 
 
   function effectuerPaiement() {
-    alert("VOTRE COMMANDE A ÉTÉ PAYÉ AVEC SUCCÈS");
+    JSAlert.alert("VOTRE COMMANDE A ÉTÉ PAYÉ AVEC SUCCÈS");
     panierPlat.length = 0; // Réinitialisez le panier après le paiement
     afficherPlatsSelectionnes(); // Mettez à jour l'affichage
-  }   
-
+  }  
   
+
+  function verifFormulaire() {
+    const nameInput = document.getElementById('name');
+    const mailInput = document.getElementById('mail');
+    const btn_Envoyer = document.getElementById("btn-envoyer");
+
+
+      if (nameInput.value != "" && mailInput.value != "") {
+        btn_Envoyer.disabled = false;
+      } else {
+        btn_Envoyer.disabled = true;
+      }  
+
+    }
+
+    
+    
+  
+

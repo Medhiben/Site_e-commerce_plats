@@ -104,3 +104,7 @@ body {
 .btn-danger:hover {
     background-color: #c0392b;
 }
+
+#connexion {
+    list-style-type: none;
+}
