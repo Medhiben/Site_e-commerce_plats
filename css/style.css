@@ -108,3 +108,21 @@ body {
 #connexion {
     list-style-type: none;
 }
+
+/* Ajoutez ces règles dans votre fichier style.css */
+.menu-list {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 0;
+  }
+  
+  .menu-item {
+    flex: 1 0 calc(23.33% - 10px); /* Chaque élément prendra 33.33% de la largeur avec marges de 10px */
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
